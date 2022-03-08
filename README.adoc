@@ -3,3 +3,16 @@
 image::docs/logo.png[]
 
 https://en.wikipedia.org/wiki/Barbary_macaque[🪱 or 🐒 ?]
+
+== 🚧 comming soon!
+
+This is work in progress, a lot of coffee remains to be converted into code!
+
+==  Install
+
+`go install github.com/a-inacio/magot`
+
+== Usage
+
+From the terminal, run `magot`.
+
