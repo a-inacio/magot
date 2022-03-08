@@ -1,5 +1,5 @@
 = Magot
 
-image::.github/logo.png?raw=true[]
+image::docs/logo.png[]
 
 https://en.wikipedia.org/wiki/Barbary_macaque[🪱 or 🐒 ?]
