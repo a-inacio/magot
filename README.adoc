@@ -1,0 +1,5 @@
+= Magot
+
+image::.github/logo.png?raw=true[]
+
+https://en.wikipedia.org/wiki/Barbary_macaque[🪱 or 🐒 ?]
