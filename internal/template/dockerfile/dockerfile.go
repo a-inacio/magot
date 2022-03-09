@@ -13,27 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package cmd
+package dockerfile
 
-import (
-	"fmt"
+import "github.com/a-inacio/magot/internal/template"
 
-	"github.com/a-inacio/magot/internal/template/dockerfile"
-	"github.com/spf13/cobra"
-)
-
-// dockerfileCmd represents the dockerfile command
-var dockerfileCmd = &cobra.Command{
-	Use:   "dockerfile",
-	Short: "Generate a dockerfile",
-	Long:  `Generate a dockerfile for your application`,
-	Run: func(cmd *cobra.Command, args []string) {
-		dockerfile := dockerfile.NewDockerfile()
-
-		fmt.Println(dockerfile.Render())
-	},
+type Dockerfile struct {
+	renderer template.Renderer
 }
 
-func init() {
-	rootCmd.AddCommand(dockerfileCmd)
+func (d Dockerfile) Render() string {
+	return d.renderer.Render()
+}
+
+func NewDockerfile() *Dockerfile {
+	return &Dockerfile{NewGoDockerfile()}
 }
