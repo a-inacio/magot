@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/a-inacio/magot/internal/template"
 	"github.com/a-inacio/magot/internal/template/dockerfile"
 	"github.com/spf13/cobra"
 )
@@ -30,7 +31,11 @@ var dockerfileCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		dockerfile := dockerfile.NewDockerfile()
 
-		fmt.Println(dockerfile.Render())
+		err := template.Preview(dockerfile)
+		if err != nil {
+			// TODO proper logging....
+			fmt.Println("ERROR!")
+		}
 	},
 }
 

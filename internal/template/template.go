@@ -15,7 +15,7 @@ limitations under the License.
 */
 package template
 
-type Renderer interface {
-	Render() string
-	Data() interface{}
+type Template interface {
+	Source() string
+	Model() interface{}
 }

@@ -19,15 +19,15 @@ import "github.com/a-inacio/magot/internal/template"
 
 // Dockerfile abstracts the recipe to render dockerfiles for specific languages<F5>
 type Dockerfile struct {
-	renderer template.Renderer
+	base template.Template
 }
 
-func (d Dockerfile) Render() string {
-	return d.renderer.Render()
+func (d Dockerfile) Source() string {
+	return d.base.Source()
 }
 
-func (d Dockerfile) Data() interface{} {
-	return d.renderer.Data()
+func (d Dockerfile) Model() interface{} {
+	return d.base.Model()
 }
 
 func NewDockerfile() *Dockerfile {

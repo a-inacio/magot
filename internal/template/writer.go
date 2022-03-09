@@ -16,23 +16,34 @@ limitations under the License.
 package template
 
 import (
+	"io"
 	"os"
 	tpl "text/template"
 )
 
-func write(renderer Renderer, path string) error {
+func Preview(t Template) error {
+	return write(t, os.Stdout)
+}
+
+func WriteFile(t Template, path string) error {
 	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	fileTemplate, err := tpl.New("tpl").Parse(renderer.Render())
+	return write(t, file)
+}
+
+func write(t Template, wr io.Writer) error {
+
+	fileTemplate, err := tpl.New("tpl").Parse(t.Source())
 	if err != nil {
 		return err
 	}
 
-	err = fileTemplate.Execute(file, renderer.Data())
+	err = fileTemplate.Execute(wr, t.Model())
+	//err = fileTemplate.Execute(file, t.Model())
 	if err != nil {
 		return err
 	}

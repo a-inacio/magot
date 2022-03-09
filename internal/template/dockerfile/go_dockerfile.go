@@ -24,11 +24,11 @@ func NewGoDockerfile() *GoDockerfile {
 	return &GoDockerfile{}
 }
 
-func (d GoDockerfile) Render() string {
+func (d GoDockerfile) Source() string {
 	return string(GoDockerfileTemplate())
 }
 
-func (d GoDockerfile) Data() interface{} {
+func (d GoDockerfile) Model() interface{} {
 	return d
 }
 
