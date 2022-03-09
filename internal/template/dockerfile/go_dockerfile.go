@@ -15,6 +15,7 @@ limitations under the License.
 */
 package dockerfile
 
+// GoDockerfile is a Dockerfile Renderer for Go applications
 type GoDockerfile struct {
 	EntryPointArgs string
 }
@@ -25,6 +26,10 @@ func NewGoDockerfile() *GoDockerfile {
 
 func (d GoDockerfile) Render() string {
 	return string(GoDockerfileTemplate())
+}
+
+func (d GoDockerfile) Data() interface{} {
+	return d
 }
 
 func GoDockerfileTemplate() []byte {

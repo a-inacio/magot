@@ -17,4 +17,5 @@ package template
 
 type Renderer interface {
 	Render() string
+	Data() interface{}
 }

@@ -13,23 +13,29 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package dockerfile
+package template
 
-import "github.com/a-inacio/magot/internal/template"
+import (
+	"os"
+	tpl "text/template"
+)
 
-// Dockerfile abstracts the recipe to render dockerfiles for specific languages<F5>
-type Dockerfile struct {
-	renderer template.Renderer
-}
+func write(renderer Renderer, path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
 
-func (d Dockerfile) Render() string {
-	return d.renderer.Render()
-}
+	fileTemplate, err := tpl.New("tpl").Parse(renderer.Render())
+	if err != nil {
+		return err
+	}
 
-func (d Dockerfile) Data() interface{} {
-	return d.renderer.Data()
-}
+	err = fileTemplate.Execute(file, renderer.Data())
+	if err != nil {
+		return err
+	}
 
-func NewDockerfile() *Dockerfile {
-	return &Dockerfile{NewGoDockerfile()}
+	return nil
 }
