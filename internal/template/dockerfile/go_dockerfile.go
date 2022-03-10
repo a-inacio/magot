@@ -17,11 +17,12 @@ package dockerfile
 
 // GoDockerfile is a Dockerfile Renderer for Go applications
 type GoDockerfile struct {
-	EntryPointArgs string
+	UseMakefile bool
+	Entrypoint  string
 }
 
-func NewGoDockerfile() *GoDockerfile {
-	return &GoDockerfile{}
+func NewGoDockerfile(useMakefile bool, entrypoint string) *GoDockerfile {
+	return &GoDockerfile{useMakefile, entrypoint}
 }
 
 func (d GoDockerfile) Source() string {
@@ -54,7 +55,11 @@ ENV GO111MODULE="on" \
     CGO_ENABLED=1 \
     GOOS=linux
 
+{{ if .UseMakefile }}
+RUN make build
+{{ else }}
 RUN go mod tidy -v && go build -o main
+{{ end }}
 
 #
 # Runtime layer
@@ -64,6 +69,6 @@ FROM alpine:3.12
 WORKDIR /app
 COPY --from=build-env /src/main .
 
-ENTRYPOINT ["/app/main"]
+ENTRYPOINT [{{.Entrypoint}}]
 `)
 }

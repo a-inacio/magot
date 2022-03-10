@@ -16,11 +16,10 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/a-inacio/magot/internal/template"
 	"github.com/a-inacio/magot/internal/template/dockerfile"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // dockerfileCmd represents the dockerfile command
@@ -29,16 +28,18 @@ var dockerfileCmd = &cobra.Command{
 	Short: "Generate a dockerfile",
 	Long:  `Generate a dockerfile for your application`,
 	Run: func(cmd *cobra.Command, args []string) {
-		dockerfile := dockerfile.NewDockerfile()
+		dockerfile := dockerfile.NewDockerfile(viper.GetBool("useMakefile"))
 
 		err := template.Preview(dockerfile)
 		if err != nil {
-			// TODO proper logging....
-			fmt.Println("ERROR!")
+			panic("Something went really wrong! Bailing out...")
 		}
 	},
 }
 
 func init() {
+	dockerfileCmd.PersistentFlags().Bool("makefile", false, "use a makefile to build the application")
+	cobra.CheckErr(viper.BindPFlag("useMakefile", dockerfileCmd.PersistentFlags().Lookup("makefile")))
+
 	rootCmd.AddCommand(dockerfileCmd)
 }

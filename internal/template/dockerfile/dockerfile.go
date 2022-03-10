@@ -19,7 +19,8 @@ import "github.com/a-inacio/magot/internal/template"
 
 // Dockerfile abstracts the recipe to render dockerfiles for specific languages<F5>
 type Dockerfile struct {
-	base template.Template
+	base        template.Template
+	useMakefile bool
 }
 
 func (d Dockerfile) Source() string {
@@ -30,6 +31,6 @@ func (d Dockerfile) Model() interface{} {
 	return d.base.Model()
 }
 
-func NewDockerfile() *Dockerfile {
-	return &Dockerfile{NewGoDockerfile()}
+func NewDockerfile(useMakefile bool) *Dockerfile {
+	return &Dockerfile{NewGoDockerfile(useMakefile, "\"/app/main\""), useMakefile}
 }
