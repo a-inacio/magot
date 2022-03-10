@@ -30,7 +30,13 @@ var dockerfileCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		dockerfile := dockerfile.NewDockerfile(viper.GetBool("useMakefile"))
 
-		err := template.Preview(dockerfile)
+		var err error
+		if viper.GetBool("preview") {
+			err = template.Preview(dockerfile)
+		} else {
+			err = template.WriteFile(dockerfile, "Dockerfile")
+		}
+
 		if err != nil {
 			panic("Something went really wrong! Bailing out...")
 		}

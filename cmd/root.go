@@ -58,6 +58,9 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.magot.yaml)")
 
+	rootCmd.PersistentFlags().Bool("preview", false, "just preview the file (no file will be created)")
+	cobra.CheckErr(viper.BindPFlag("preview", rootCmd.PersistentFlags().Lookup("preview")))
+
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
