@@ -4,7 +4,7 @@ image::docs/logo.png[]
 
 https://en.wikipedia.org/wiki/Barbary_macaque[🪱 or 🐒 ?]
 
-== 🚧 comming soon!
+== 🚧 coming soon!
 
 This is work in progress, a lot of coffee remains to be converted into code!
 
