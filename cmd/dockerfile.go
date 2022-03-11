@@ -28,7 +28,10 @@ var dockerfileCmd = &cobra.Command{
 	Short: "Generate a dockerfile",
 	Long:  `Generate a dockerfile for your application`,
 	Run: func(cmd *cobra.Command, args []string) {
-		dockerfile := dockerfile.NewDockerfile(viper.GetBool("useMakefile"))
+		dockerfile := dockerfile.NewDockerfile(
+			viper.GetBool("useMakefile"),
+			viper.GetString("buildLayer"),
+			viper.GetString("runtimeLayer"))
 
 		var err error
 		if viper.GetBool("preview") {
@@ -45,7 +48,11 @@ var dockerfileCmd = &cobra.Command{
 
 func init() {
 	dockerfileCmd.PersistentFlags().Bool("makefile", false, "use a makefile to build the application")
+	dockerfileCmd.PersistentFlags().String("buildLayer", "golang:1.17.2-alpine3.14", "dockerfile build image layer")
+	dockerfileCmd.PersistentFlags().String("runtimeLayer", "alpine3.14", "dockerfile runtime image layer")
 	cobra.CheckErr(viper.BindPFlag("useMakefile", dockerfileCmd.PersistentFlags().Lookup("makefile")))
+	cobra.CheckErr(viper.BindPFlag("buildLayer", dockerfileCmd.PersistentFlags().Lookup("buildLayer")))
+	cobra.CheckErr(viper.BindPFlag("runtimeLayer", dockerfileCmd.PersistentFlags().Lookup("runtimeLayer")))
 
 	rootCmd.AddCommand(dockerfileCmd)
 }

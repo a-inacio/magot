@@ -31,6 +31,6 @@ func (d Dockerfile) Model() interface{} {
 	return d.base.Model()
 }
 
-func NewDockerfile(useMakefile bool) *Dockerfile {
-	return &Dockerfile{NewGoDockerfile(useMakefile, "\"/app/main\""), useMakefile}
+func NewDockerfile(useMakefile bool, buildLayer string, runtimeLayer string) *Dockerfile {
+	return &Dockerfile{NewGoDockerfile(useMakefile, "\"/app/main\"", buildLayer, runtimeLayer), useMakefile}
 }

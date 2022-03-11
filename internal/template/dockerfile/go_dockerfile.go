@@ -17,12 +17,22 @@ package dockerfile
 
 // GoDockerfile is a Dockerfile Renderer for Go applications
 type GoDockerfile struct {
-	UseMakefile bool
-	Entrypoint  string
+	UseMakefile       bool
+	Entrypoint        string
+	BuildLayerImage   string
+	RuntimeLayerImage string
 }
 
-func NewGoDockerfile(useMakefile bool, entrypoint string) *GoDockerfile {
-	return &GoDockerfile{useMakefile, entrypoint}
+func NewGoDockerfile(
+	useMakefile bool,
+	entrypoint string,
+	buildLayerImage string,
+	runtimeLayerImage string) *GoDockerfile {
+	return &GoDockerfile{
+		useMakefile,
+		entrypoint,
+		buildLayerImage,
+		runtimeLayerImage}
 }
 
 func (d GoDockerfile) Source() string {
@@ -38,7 +48,7 @@ func GoDockerfileTemplate() []byte {
 # Build layer
 #
 
-FROM golang:1.17.2-alpine3.14 AS build-env
+FROM {{.BuildLayerImage}} AS build-env
 
 RUN apk add --update make protoc protobuf protobuf-dev git build-base bash curl
 
@@ -65,7 +75,7 @@ RUN go mod tidy -v && go build -o main
 # Runtime layer
 #
 
-FROM alpine:3.12
+FROM {{.RuntimeLayerImage}}
 WORKDIR /app
 COPY --from=build-env /src/main .
 
