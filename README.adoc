@@ -10,9 +10,9 @@ This is work in progress, a lot of coffee remains to be converted into code!
 
 ==  Install
 
-`go install github.com/a-inacio/magot`
+`go install github.com/a-inacio/magot@latest`
 
 == Usage
 
-From the terminal, run `magot`.
+Run `magot`
 
