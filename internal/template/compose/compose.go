@@ -50,5 +50,7 @@ func dockercomposeTemplate() []byte {
 # WIP
 #
 services:
+{{ if .UseApp }} app:
+    build: . {{ end }}
 `)
 }
