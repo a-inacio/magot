@@ -36,7 +36,7 @@ func NewGoDockerfile(
 }
 
 func (d GoDockerfile) Source() string {
-	return string(GoDockerfileTemplate())
+	return string(goDockerfileTemplate())
 }
 
 func (d GoDockerfile) Model() interface{} {
@@ -47,7 +47,7 @@ func (d GoDockerfile) IsValid() error {
 	return nil
 }
 
-func GoDockerfileTemplate() []byte {
+func goDockerfileTemplate() []byte {
 	return []byte(`#
 # Build layer
 #

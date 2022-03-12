@@ -15,7 +15,40 @@ limitations under the License.
 */
 package compose
 
+import (
+	"errors"
+)
+
+// Compose abstracts the recipe to render docker compose files
 type Compose struct {
-	UseApp     bool
-	UsePosgres bool
+	UseApp      bool
+	UsePostgres bool
+}
+
+func (c Compose) Source() string {
+	return string(dockercomposeTemplate())
+}
+
+func (c Compose) Model() interface{} {
+	return c
+}
+
+func (c Compose) IsValid() error {
+	if c.UseApp || c.UsePostgres {
+		return nil
+	}
+
+	return errors.New("At least one service needs to be enabled!")
+}
+
+func NewCompose(useApp bool, usePostgres bool) *Compose {
+	return &Compose{useApp, usePostgres}
+}
+
+func dockercomposeTemplate() []byte {
+	return []byte(`#
+# WIP
+#
+services:
+`)
 }
