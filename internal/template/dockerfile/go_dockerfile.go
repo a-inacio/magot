@@ -43,6 +43,10 @@ func (d GoDockerfile) Model() interface{} {
 	return d
 }
 
+func (d GoDockerfile) IsValid() error {
+	return nil
+}
+
 func GoDockerfileTemplate() []byte {
 	return []byte(`#
 # Build layer

@@ -31,6 +31,10 @@ func (d Dockerfile) Model() interface{} {
 	return d.base.Model()
 }
 
+func (d Dockerfile) IsValid() error {
+	return d.base.IsValid()
+}
+
 func NewDockerfile(useMakefile bool, buildLayer string, runtimeLayer string) *Dockerfile {
 	return &Dockerfile{NewGoDockerfile(useMakefile, "\"/app/main\"", buildLayer, runtimeLayer), useMakefile}
 }
