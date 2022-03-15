@@ -48,8 +48,8 @@ var dockerfileCmd = &cobra.Command{
 
 func init() {
 	dockerfileCmd.PersistentFlags().Bool("makefile", false, "use a makefile to build the application")
-	dockerfileCmd.PersistentFlags().String("buildLayer", "golang:1.17.2-alpine3.14", "dockerfile build image layer")
-	dockerfileCmd.PersistentFlags().String("runtimeLayer", "alpine3.14", "dockerfile runtime image layer")
+	dockerfileCmd.PersistentFlags().String("buildLayer", "golang:1.17.8-alpine3.15", "dockerfile build image layer")
+	dockerfileCmd.PersistentFlags().String("runtimeLayer", "alpine:3.15", "dockerfile runtime image layer")
 	cobra.CheckErr(viper.BindPFlag("useMakefile", dockerfileCmd.PersistentFlags().Lookup("makefile")))
 	cobra.CheckErr(viper.BindPFlag("buildLayer", dockerfileCmd.PersistentFlags().Lookup("buildLayer")))
 	cobra.CheckErr(viper.BindPFlag("runtimeLayer", dockerfileCmd.PersistentFlags().Lookup("runtimeLayer")))
