@@ -56,8 +56,7 @@ FROM {{.BuildLayerImage}} AS build-env
 
 RUN apk add --update make protoc protobuf protobuf-dev git build-base bash curl
 
-RUN go get -u github.com/golang/protobuf/proto
-RUN go get -u github.com/golang/protobuf/protoc-gen-go
+RUN go get -u google.golang.org/protobuf
 RUN go get -u google.golang.org/grpc
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.1
 
